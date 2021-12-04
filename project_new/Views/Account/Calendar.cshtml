@@ -1,0 +1,52 @@
+﻿@model project_new.ViewModels.TaskViewModel
+
+@{
+    ViewData["Title"] = "Добавление задачи";
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<hr />
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+    <div class="col-md-10">
+        <form asp-action="Calendar">
+            <form asp-action="CreateTask">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="left_space">
+                    <label asp-for="Date">Выбрать дату</label><br />
+                    <input asp-for="Date" />
+                    <span asp-validation-for="Date"></span>
+                </div>
+                <div class="left_space">
+                    <label asp-for="Description">Добавить задачу</label><br />
+                    <input asp-for="Description"/>
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </form>
+            <form asp-action="GetTask">
+                <div class="task_flex">
+                    <div class="left_space">
+                        <h5>Список задач</h5>
+                        <ol style="list-style: none;">
+                            
+                        </ol>
+                        <div class="submit_c">
+                            <div><input type="submit" value="Сделано" class="btn btn-primary" style="position:absolute; bottom:0" /></div>
+                            <div><input type="submit" value="Удалить" class="btn btn-primary" style="position:absolute; bottom:0" /></div>
+                        </div>
+                    </div>    
+                    <div class="left_space">
+                        <h5>Выполнено</h5>
+                        <input type="submit" value="Очистить" class="btn btn-primary" style="position:absolute; bottom:0" />
+                    </div>
+                </div>
+            </form>
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <div><input type="submit" value="Выход" /></div>
+            </form>
+        </form>
+    </div>
+}
